@@ -1,20 +1,34 @@
-<html><center>
-<title> Home - LocalFoodie </title>
-<p style = "font-family:sans-serif, helvetica; font-style: italic;">
-<body>
-<h1><font color = "#3b5998">Hello friend! Welcome to LocalFoodie.</font></h1>
+<html>
+    <center>
+    <title> Home - LocalFoodie </title>
+    <p style = "font-family:sans-serif, helvetica; font-style: italic;">
 
-<img src = "https://static.vecteezy.com/system/resources/previews/000/475/983/non_2x/vector-food-court-isometric-composition.jpg"></img>
-
-<p>Our company is here to help you get the food you want or need!<br>
-<font color = "#767676">Just click <a href = "/login">here</a> to login to get set, ready, and eat!</font></p>
-<p>Once you login, you will be following these steps:</p>
-    <div>
-        {% for list_of_steps in list_of_steps %}
-        {{list_of_steps}} <br>
-        {% endfor %}
-    <div>
-
-</body>
-</center>
+    <body>
+        <h1><font color = "#3b5998">Hello friend! Welcome to LocalFoodie.</font></h1>
+    
+    <img src = "https://static.vecteezy.com/system/resources/previews/000/475/983/non_2x/vector-food-court-isometric-composition.jpg"></img>
+    
+    <p>Our company is here to help you get the food you want or need!<br>
+    <p>Once you login, you will be following these steps:</p>
+        <div>
+            {% for list_of_steps in list_of_steps %}
+            {{list_of_steps}} <br>
+            {% endfor %}
+        <div>
+            
+        <br><br>
+        
+        <form action = "/settings" method = "post">
+        <label for = "username">Username:</label>
+        <input type = "text" name = "username" required = "required"></br>
+    
+        <label for = "password">Password:</label>
+        <input type = "password" name = "password" required = "required"></br>
+        <br><br>
+        <input type = "checkbox" name = "remember_me" value = "Remember Me"> Remember Me <br>
+        <br><br>
+        <input type = "submit" value = "Login">
+        </form>
+    </body>
+    </center>
 </html>
