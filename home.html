@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+	<title> Home - LocalFoodie </title>
+	<p style = "font-family:sans-serif, helvetica; font-style: italic;">
+
+    <body>
+		<h1><font color = "#3b5998">Hello friend! Welcome to LocalFoodie.</font></h1>
+    
+    <img src = "https://static.vecteezy.com/system/resources/previews/000/475/983/non_2x/vector-food-court-isometric-composition.jpg"></img>
+    
+    <p>Our company is here to help you get the food you want or need!<br>
+    <p>Once you login, you will be following these steps:</p>
+        <div>
+            {% for list_of_steps in list_of_steps %}
+            {{list_of_steps}} <br>
+            {% endfor %}
+        <div>
+		
+
+		<form method="post" action="_show_name">
+		UserName <input type=text name="HTML_input_city"> <br>
+	
+		Password <input type=text name="HTML_input_rank"> <br>
+		
+		Remember me <input type=checkbox name="HTML_input_visit"> <br>
+
+		Submit <a href="category.html"><button></button></a>
+		Need register <a href="login.html"><button></button></a>
+		</form>
+	</body>
+	{% endblock %}
+	
