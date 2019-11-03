@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<html>
+    <center>
+    <title> Restaurants - LocalFoodie </title>
+    <p style = "font-family:sans-serif, helvetica; font-style: italic;">
+
+    <body>
+        <h1 id = "top"><font color = "#3b5998">List of Restaurants</font></h1>
+        
+        <img src = "https://www.pinclipart.com/picdir/big/368-3689842_online-food-and-restaurant-app-development-service-illustration.png" height = "200"></img>
+        
+        <p>In your requested location, these are available options:</p>
+        
+        <h2 id = "campus_food"><font color = "#3b5998">On-Campus Food</font></a></h2>
+            <p> The options on the SJSU campus are:</p>
+            <div>
+                {% for campus_food in campus_food %}
+                {{campus_food}} <br>
+                {% endfor %}
+                </div>
+            
+        <h2 id = "viet"><font color = "#3b5998">Vietnamese</font></a></h2>
+        
+        <div>
+        {% for viet in viet %}
+        {{viet}} <br>
+        {% endfor %}
+        </div>
+
+        <h2 id = "chinese"><font color = "#3b5998">Chinese</font></a></h2>
+            <div>
+            {% for chinese in chinese %}
+            {{chinese}} <br>
+            {% endfor %}
+            </div>
+        
+        <h2 id = "mex"><font color = "#3b5998">Mexican</font></a></h2>
+        <div>
+        {% for mex in mex %}
+        {{mex}} <br>
+        {% endfor %}
+        </div>
+        
+        <h2 id = "fastfood"><font color = "#3b5998">Fast Food</font></a></h2>
+        <div>
+        {% for fastfood in fastfood %}
+        {{fastfood}} <br>
+        {% endfor %}
+        </div>
+        
+        <h2 id = "quick"><font color = "#3b5998">Quick Fixes</font></a></h2>
+        <div>
+        {% for quick in quick %}
+        {{quick}} <br>
+        {% endfor %}
+        </div>
+        </body>
+           </center>
+</html>
+{% endblock %}
