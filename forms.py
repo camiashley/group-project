@@ -9,3 +9,6 @@ class food(FlaskForm):
     remember_me = BooleanField('Remember Me')
     register = SubmitField('Register')
     log_in = SubmitField('Log In')
+    name = StringField('Name', validators=[DataRequired()])
+    feedback = StringField('FeedBack',validators=[DataRequired()])
+    submit = SubmitField('Submit')
