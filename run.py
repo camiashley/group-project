@@ -1,2 +1,2 @@
-from application import app #call myFlaskObj so we can run
+from application import app
 app.run()

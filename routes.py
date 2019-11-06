@@ -16,16 +16,17 @@ def register():
         pass
     return render_template('register.html', form = form)
 
-@app.route('/log_in', methods = ['GET', 'POST'])
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
     form = food()
     if form.validate_on_submit():
-        flash('Welcome to you our app, hurry go grab your food')
-    return render_template('log_in.html', form = form)
+        flash('Login request for user {}, remember me={}'.format(
+            form.user_name.data, form.remember_me.data))
+    return render_template('login.html', form = form)
 
-@app.route('/log_out', methods = ['GET','POST'])
+@app.route('/logout', methods = ['GET','POST'])
 def logout():
-    return render_template('log_out.html')
+    return render_template('logout.html')
 
 @app.route('/location', methods = ['GET', 'POST'])
 def location():
