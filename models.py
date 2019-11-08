@@ -1,9 +1,12 @@
 from application import db
 from datetime import datetime
 from  werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin #authenticated
+from application import login   #loader function
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
+    __tablename__='user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique = True)
     email = db.Column(db.String(128), index=True, unique = True)
@@ -26,5 +29,12 @@ class Post(db.Model):
     timestamps = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-def __repr__(self):
+    def __repr__(self):
        return f'<post: {self.body}>'
+
+
+
+
+@login.user_loader  #flask login user loader function
+def load_user(id):  #database load string id
+    return User.query.get(int(id))  #get string id and convert it to integer

@@ -3,16 +3,11 @@
 
 <body>
     
-    </div>
-
-    <div class="container">
-        <div id="mainheader">
-            <h1>Welcome to LocalFoodie.</h1>
-            <p>Our company is here to help you get the food you want or need!<br>
-            <p>If you dont have an account, create an account!</p>
-            <p>Once you login, you are ready to go. Thanks</p>
-            <img src = "https://static.vecteezy.com/system/resources/previews/000/475/983/non_2x/vector-food-court-isometric-composition.jpg"></img>
-    </div>
+    <h1>Welcome {{ current_user.username }} to LocalFoodie.</h1>
+    <p>Our company is here to help you get the food you want or need!<br>
+    <p>If you dont have an account, create an account!</p>
+    <p>Once you login, you are ready to go. Thanks</p>
+    <img src = "https://static.vecteezy.com/system/resources/previews/000/475/983/non_2x/vector-food-court-isometric-composition.jpg"></img>
    
 </body>
 {% endblock %}
