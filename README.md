@@ -36,3 +36,19 @@ If you do not have an account, register an account and you will be brought to ou
 7. Feedback
 
 8. Mobile Payment / Review Order
+
+# Test Cases
+For now, test cases have the e-mail and password of a user in the database.
+
+To run the test case, do like so: 
+ - pytest -v 
+
+If there is no such user, the test case will send error messages.
+The test cases include users that exist and users that do not exist in the database.
+Because we have four test cases, four messages will be sent, either with ERROR or a passing message.
+If there is an error, this message will be shown: 
+  test_user.py::test_new_user ERROR
+  test_user2.py::test_new_user ERROR
+  test_user3.py::test_new_user ERROR
+  test_user4.py::test_new_user ERROR
+
