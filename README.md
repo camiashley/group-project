@@ -1,7 +1,7 @@
-# group-project
+# Group 1
 [![Build Status](https://travis-ci.com/camiashley/group-project.svg?branch=master)](https://travis-ci.com/camiashley/group-project)
 
-# group 1
+# How to run LocalFoodie App
 Run the app by downloading the entire branch.
 Using your computer's terminal, install the following files from flask:
   - pip install flask
@@ -12,6 +12,7 @@ Using your computer's terminal, install the following files from flask:
   - pip install googlemaps
   - pip install prettyprint
   - pip install db
+  
 After these files are installed, run like so: 
  - python run.py
 Given the url link of our app, open it on your browser and you will led to login page.
