@@ -15,6 +15,7 @@ Using your computer's terminal, install the following files from flask:
   
 After these files are installed, run like so: 
  - python run.py
+
 Given the url link of our app, open it on your browser and you will led to login page.
 If you do not have an account, register an account and you will be brought to our home page after register.
 
