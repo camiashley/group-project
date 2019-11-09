@@ -21,21 +21,41 @@ If you do not have an account, register an account and you will be brought to ou
 
 # 8 Features
 
-1. Login
+1. Login 
+
+User needs to provide username and password for their account, if they already registered.
+If not, there will be an error indicating they should register.
 
 2. Logout 
 
+User logs out back to the login page.
+
 3. Register
 
-4. Location
+User provides a username, a password, and e-mail of their account.
+After registering, they are brought back to login page to login.
+
+4. Location / Settings
+
+User provides their location and the distance in radius of the restaurant search.
+Through these, the app will provide a category selection for places near.
 
 5. Categories
 
+The page shows categories of different styles of food.
+This depends on their location.
+
 6. Restaurant Recommendation
+
+After category selection, the user is recommended restaurants under the category they chose.
 
 7. Feedback
 
+The user can provide feedback for the restaurant selected.
+
 8. Mobile Payment / Review Order
+
+The app will review the order back to the user. This will be improved in the future.
 
 # Test Cases
 For now, test cases have the e-mail and password of a user in the database.
