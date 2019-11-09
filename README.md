@@ -47,8 +47,12 @@ If there is no such user, the test case will send error messages.
 The test cases include users that exist and users that do not exist in the database.
 Because we have four test cases, four messages will be sent, either with ERROR or a passing message.
 If there is an error, this message will be shown: 
+
   test_user.py::test_new_user ERROR
+  
   test_user2.py::test_new_user ERROR
+  
   test_user3.py::test_new_user ERROR
+  
   test_user4.py::test_new_user ERROR
 
