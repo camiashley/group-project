@@ -1,6 +1,6 @@
 from flask import render_template, redirect, request, url_for
 from application import app, db
-from application.forms import LoginForm
+from application.forms import LoginForm, Feedback, LocationForm
 from flask import flash
 from flask_sqlalchemy import SQLAlchemy #from sqlalchemy library import class sqlalchemy
 from flask_login import current_user, login_user, logout_user, login_required
@@ -52,8 +52,8 @@ def logout():
 
 @app.route('/location', methods = ['GET', 'POST'])
 def location():
-    username = request.form.get('username')
-    return render_template('location.html', username=username)
+    form = LocationForm()
+    return render_template('location.html', form=form)
 
 @app.route('/restaurants', methods = ['GET', 'POST'])
 def restaurants():
@@ -71,14 +71,14 @@ def select_order():
 
 @app.route('/feed_back', methods = ['GET','POST'] )
 def feed_back():
-    form = LoginForm()
+    form = Feedback()
     if form.validate_on_submit():
         pass
     return render_template('feed_back.html',form = form) 
 
 @app.route('/mobile_payment', methods = ['GET','POST'])
 def mobile_payment():
-    return render_template('mobile_payment.html') 
+    return render_template('mobile_payment.html')
 
 
 @app.route('/Categories', methods = ['GET', 'POST'])
