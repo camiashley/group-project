@@ -9,19 +9,18 @@
     <p>Thank you for using our app<br>
     <p>In order to improve my app, please give a comment and rate our app!</p>
     <br>
+    <form method="post" action="_show_name">
+		<p>{{form.username.label}}{{form.username()}}
+		</p>
+		<p>{{form.comments.label}}{{form.comments()}}
+		</p>
+		<p>{{form.submit.label}}{{form.submit()}}
+		</p>
+		
+		</form>
 
-    <form method="post" action="" novalidate>
-		{{ form.hidden_tag() }}
-	<p>{{form.name.label}}
-		{{form.name(size=32)}}
-	</p>
-	<p>{{form.feedback.label}}
-		{{form.feedback(size=32)}}
-	</p>
-	<p>
-        {{form.submit()}}
-    </p>
-    </form>
+  
 </center>
 </body>
 {% endblock %}
+
