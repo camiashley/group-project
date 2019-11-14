@@ -2,12 +2,19 @@
 {% block content %}
 
 <body>
-    
-    <h1>Welcome {{ current_user.username }} to LocalFoodie.</h1>
-    <p>Our company is here to help you get the food you want or need!<br>
-    <p>What are you waiting for ?</p>
-    <p>Click to Restaurant and pick the restaurant you want.</p>
+    <div id = "white">
+    <h2>Welcome <u>{{ current_user.username }}</u> to LocalFoodie.</h2>
+    <p>Our company is here to help you get the food you want or need!<br/>
+    Use the navigation bar above to set or review your location, <br/>
+    select categories or restaurants, or make an order and pay with <br/>
+    whatever is in your cart!</p>
+
     <img src = "https://static.vecteezy.com/system/resources/previews/000/475/983/non_2x/vector-food-court-isometric-composition.jpg"></img>
-   
+    <br><br><br>
+    
+    <p style = "font-size:15px;">You are currently seeing this page because you are logged in as:<br/> <u>{{current_user.username}}</u><br/>
+    
+    If this is not you, please logout. </p>
+    </div>
 </body>
 {% endblock %}
