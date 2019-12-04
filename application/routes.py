@@ -1,11 +1,12 @@
 from flask import render_template, redirect, request, url_for
 from application import app, db
-from application.forms import LoginForm, RegistrationForm, FeedbackForm
+from application.forms import LoginForm, LocationForm, Feedback
 from flask import flash
 from flask_sqlalchemy import SQLAlchemy #from sqlalchemy library import class sqlalchemy
 from flask_login import current_user, login_user, logout_user, login_required
 from application.models import User
 from werkzeug.urls import url_parse
+from application.forms import RegistrationForm
 
 @app.route('/') #create an address for the website
 @app.route('/home')
@@ -44,11 +45,6 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
-@app.route('/feed_back', methods = ['GET', 'POST'] )
-def feed_back():
-    form = FeedbackForm()
-    return render_template('feed_back.html', form = form) 
-
 @app.route('/logout')
 def logout():
     logout_user()
@@ -56,31 +52,29 @@ def logout():
 
 @app.route('/location', methods = ['GET', 'POST'])
 def location():
-    username = request.form.get('username')
-    return render_template('location.html', username=username)
+    return render_template('location.html')
 
 @app.route('/restaurants', methods = ['GET', 'POST'])
 def restaurants():
-    campus_food = ['• Panda Express', '• Subway', '• Jamba Juice', "• Steak n' Shake", '• Taco Bell', '• Build Pizza', '• Japanese Fusion', '• Paseo Fresh', '• Starbucks']
-    viet = ['• VietNoms', '• Banh Mi Oven', "• Lee's Sandwiches", '• Pho Passion']
-    chinese = ['• Panda Express', '• China Chen']
-    mex = ['• Taco Bell', '• La Vics', '• Iguanas', '• Chipotle']
-    fastfood = ['• Taco Bell', '• Jack in the Box', '• McDonalds', '• Chipotle']
-    quick = ['• Gongcha', '• Breaktime', '• Village Market', '• 7Eleven']
-    return render_template('restaurants.html', campus_food=campus_food, viet=viet, chinese=chinese, mex=mex, fastfood=fastfood, quick=quick)
+    return render_template('restaurants.html')
 
 @app.route('/select_order', methods = ['GET','POST'])
 def select_order():
     return render_template('select_order.html')
 
-
+@app.route('/feed_back', methods = ['GET','POST'] )
+def feed_back():
+    form = Feedback()
+    if form.validate_on_submit():
+        pass
+    return render_template('feed_back.html',form = form) 
 
 @app.route('/mobile_payment', methods = ['GET','POST'])
 def mobile_payment():
-    return render_template('mobile_payment.html') 
+    return render_template('mobile_payment.html')
 
 
-@app.route('/Categories', methods = ['GET', 'POST'])
+@app.route('/categories', methods = ['GET', 'POST'])
 def categories():
     location = request.form.get('location')
     radius = request.form.get('radius')
