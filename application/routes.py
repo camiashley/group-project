@@ -81,6 +81,10 @@ def mobile_payment():
 @app.route('/finish', methods = ['GET', 'POST'])
 def finish():
     return render_template('finish.html')
+    
+@app.route('/notifications', methods = {'GET', 'POST'})
+def notifs():
+    return render_template('notifs.html')
 
 
 @app.route('/categories', methods = ['GET', 'POST'])
