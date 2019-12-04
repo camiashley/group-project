@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<html>
+    <center>
+    <title>Notifications</title>
+<body>
+    <div id = "white">
+        <h2>Notification Settings</h2>
+        
+        <img src = "https://miro.medium.com/max/712/1*c3cQvYJrVezv_Az0CoDcbA.jpeg" height = "350"></img>
+        <br><br>
+        <p>Do you want notifications to be set?
+        <br>This is for the kitchen at your chosen restaurant
+        <br>to notify you when your food is ready.</p>
+        
+        <form method = "post" action = "categories">
+        <input type = "checkbox" name = "answer" value = "Yes"/> Yes?
+        <br>
+        <input type = "checkbox" name = "answer" value = "No"/> No?
+        <br>
+        
+
+    </div>
+    </body>
+</html>
+{% endblock %}
