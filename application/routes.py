@@ -71,7 +71,12 @@ def feed_back():
 
 @app.route('/mobile_payment', methods = ['GET','POST'])
 def mobile_payment():
-    return render_template('mobile_payment.html')
+    order1 = request.form.get('order1')
+    order2 = request.form.get('order2')
+    order3 = request.form.get('order3')
+    order4 = request.form.get('order4')
+    order5 = request.form.get('order5')
+    return render_template('mobile_payment.html', order1=order1, order2=order2, order3=order3, order4=order4, order5=order5)
 
 
 @app.route('/categories', methods = ['GET', 'POST'])
