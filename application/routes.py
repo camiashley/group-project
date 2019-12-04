@@ -77,6 +77,10 @@ def mobile_payment():
     order4 = request.form.get('order4')
     order5 = request.form.get('order5')
     return render_template('mobile_payment.html', order1=order1, order2=order2, order3=order3, order4=order4, order5=order5)
+    
+@app.route('/finish', methods = ['GET', 'POST'])
+def finish():
+    return render_template('finish.html')
 
 
 @app.route('/categories', methods = ['GET', 'POST'])
