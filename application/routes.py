@@ -69,7 +69,7 @@ def feed_back():
         pass
     return render_template('feed_back.html',form = form) 
 
-@app.route('/mobile_payment', methods = ['GET','POST'])
+@app.route('/confirm', methods = ['GET','POST'])
 def mobile_payment():
     order1 = request.form.get('order1')
     order2 = request.form.get('order2')
