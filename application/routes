@@ -1,0 +1,202 @@
+from flask import render_template, redirect, request, url_for,jsonify
+from application import app, db
+from application.forms import LoginForm, RegistrationForm, PostForm
+from flask import flash
+from flask_sqlalchemy import SQLAlchemy #from sqlalchemy library import class sqlalchemy
+from flask_login import current_user, login_user, logout_user, login_required
+from application.models import User, Post
+from werkzeug.urls import url_parse
+import googlemaps
+import pprint
+import time
+import requests
+from key import key
+from datetime import datetime
+from application.forms import EditProfileForm
+
+search_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
+details_url = "https://maps.googleapis.com/maps/api/place/details/json"
+
+@app.route('/') #create an address for the website
+@app.route('/home')
+@login_required
+def home(): #call a function home()
+    return render_template('home.html', title='Home Page') #from that function, return home.html and variables
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
+
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('home')
+        return redirect(next_page)
+    return render_template('login.html', title='Sign In', form=form)
+
+
+@app.route('/feed_back', methods=['GET', 'POST'])
+@login_required
+def feed_back():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('index'))
+    posts = current_user.followed_posts().all()
+    return render_template("feed_back.html", title='Feed Back', form=form,
+                           posts=posts)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+@app.route('/location', methods = ['GET', 'POST'])
+def location():
+    username = request.form.get('username')
+    return render_template('layout.html', username=username)
+
+@app.route("/sendRequest/<string:query>")   #takes in the query
+def results(query):
+    search_payload = {"key":key, "query":query}
+    search_req = requests.get(search_url, params=search_payload) #sent this and should get response
+    search_json = search_req.json() #get representation of the data that was returned in the response
+
+    place_id = search_json["results"][0]["place_id"]
+
+    details_payload = {"key":key, "placeid":place_id}
+    details_resp = requests.get(details_url, params=details_payload)
+    details_json = details_resp.json()
+
+    url = details_json["result"]["url"]
+    return jsonify({'result' : url})
+
+
+
+@app.route('/restaurants', methods = ['GET', 'POST'])
+def restaurants():
+    return render_template('restaurants.html')
+
+@app.route('/select_order', methods = ['GET','POST'])
+def select_order():
+    return render_template('select_order.html')
+
+
+
+@app.route('/confirm', methods = ['GET','POST'])
+def mobile_payment():
+    order1 = request.form.get('order1')
+    order2 = request.form.get('order2')
+    order3 = request.form.get('order3')
+    order4 = request.form.get('order4')
+    order5 = request.form.get('order5')
+    return render_template('mobile_payment.html', order1=order1, order2=order2, order3=order3, order4=order4, order5=order5)
+
+
+@app.route('/categories', methods = ['GET', 'POST'])
+def categories():
+    location = request.form.get('location')
+    radius = request.form.get('radius')
+    return render_template('Categories.html', location=location, radius=radius)
+
+@app.route('/notifications', methods = {'GET', 'POST'})
+def notifs():
+    return render_template('notifs.html')
+
+@app.route('/finish', methods = ['GET', 'POST'])
+def finish():
+    return render_template('finish.html')
+
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {'author': user, 'body': 'Test post #1'},
+        {'author': user, 'body': 'Test post #2'}
+    ]
+    return render_template('user.html', user=user, posts=posts)
+
+
+@app.route('/explore')
+@login_required
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('feed_back.html', title='Explore', posts=posts)
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('index'))
+    if user == current_user:
+        flash('You cannot follow yourself!')
+        return redirect(url_for('user', username=username))
+    current_user.follow(user)
+    db.session.commit()
+    flash('You are following {}!'.format(username))
+    return redirect(url_for('user', username=username))
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('User {} not found.'.format(username))
+        return redirect(url_for('index'))
+    if user == current_user:
+        flash('You cannot unfollow yourself!')
+        return redirect(url_for('user', username=username))
+    current_user.unfollow(user)
+    db.session.commit()
+    flash('You are not following {}.'.format(username))
+    return redirect(url_for('user', username=username))
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('edit_profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.about_me.data = current_user.about_me
+    return render_template('edit_profile.html', title='Edit Profile',
+                           form=form)
