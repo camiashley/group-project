@@ -21,7 +21,7 @@ If you do not have an account, register an account and you will be brought to ou
 
 # Link to Heroku
 
-[insert link here]
+tranquil-river-49598.herokuapp.com
 
 # Sphinx Documentation
 
